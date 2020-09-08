@@ -15,23 +15,28 @@
             Every Name key should be unique among the form
           </h3>
         </div>
+        <button class="absolute right-0 mr-4" @click="showUniqueWarning = !showUniqueWarning">
+          <svg class="h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
     </div>
 
-    <div class=" flex bg-white" v-if="!!currentElements">
+    <div class=" flex bg-white" v-if="!!currentElements && !!availableElements">
       <VueDraggableFormBuilderForm ref="editableForm" :propCurrentElements="currentElements" :editable="true" @onFormChanged="onFormChanged" ></VueDraggableFormBuilderForm>
 
-      <VueFormBuilderDraggableSidebar :propAvailableItems="propAvailableItems" @onFormChanged="onFormChanged"></VueFormBuilderDraggableSidebar>
+      <VueFormBuilderDraggableSidebar :propAvailableElements="availableElements" @onFormChanged="onFormChanged"></VueFormBuilderDraggableSidebar>
     </div>
 
     <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense justify-items-center">
       <span class="flex w-full rounded-md shadow-sm sm:col-start-2 max-w-sm">
-          <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="saveForm()" :disabled="!this.currentElements.length">
+          <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="saveForm()" :disabled="!!this.currentElements && !this.currentElements.length">
               Save form
           </button>
       </span>
       <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:col-start-1 max-w-sm">
-          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5 " @click="showPreviewModalFunc()" :disabled="!this.currentElements.length">
+          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5 " @click="showPreviewModalFunc()" :disabled="!!this.currentElements && !this.currentElements.length">
               Preview
           </button>
       </span>
@@ -50,7 +55,7 @@
         
         <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="width: 95%;" :class="{'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95': !showPreviewModal, 'opacity-100 translate-y-0 sm:scale-100': showPreviewModal}">
           <!-- Content -->
-          <VueDraggableFormBuilderForm :propCurrentElements="currentElements" ></VueDraggableFormBuilderForm>
+          <VueDraggableFormBuilderForm :propCurrentElements="currentElements" v-if="!!currentElements"></VueDraggableFormBuilderForm>
           <!-- Footer -->
           <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense justify-items-center">
             <span class="flex w-full rounded-md shadow-sm sm:col-start-2 max-w-xs">
@@ -78,6 +83,9 @@
 </template>
 
 <style>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 
   button:disabled {
     @apply opacity-50 cursor-not-allowed;
@@ -333,11 +341,12 @@
         showPreviewModal: false,
         showJson: false,
         showUniqueWarning: false,
-        currentElements: undefined
+        currentElements: undefined,
+        availableElements: undefined
       };
     },
     props: {
-      propAvailableItems: {
+      propAvailableElements: {
         required: true
       },
       propCurrentElements: {
@@ -345,7 +354,8 @@
       }
     },
     mounted() {
-        this.currentElements = this.propCurrentElements;
+      this.currentElements = this.propCurrentElements;
+      this.checkForAvailableElements();
     },
     computed: {
      
@@ -353,6 +363,54 @@
     methods: {
       closeModal() {
         this.showPreviewModal = false;
+      },
+      checkForAvailableElements() {
+        const availableElems = [];
+        this.propAvailableElements.forEach((elem) => {
+          switch(elem) {
+            case 'input':
+              availableElems.push({
+                "label": "Input",
+                "type": "input",
+                "description": "a description",
+                "placeholder": "placeholder",
+                "value": "",
+                "name": "my_unique_key",
+              });
+            break;
+            case 'textarea':
+              availableElems.push({
+                "label": "Textarea",
+                "type": "textarea",
+                "description": "a description",
+                "placeholder": "placeholder",
+                "value": "",
+                "name": "my_unique_key",
+              });
+            break;
+            case 'select':
+              availableElems.push({
+                "label": "Label",
+                "type": "select",
+                "description": "a description",
+                "options": [
+                  {
+                    label: "My option",
+                    value: 1,
+                    selected: true
+                  },
+                  {
+                    label: "My option",
+                    value: 1,
+                    selected: true
+                  },
+                ],
+                "name": "my_unique_key",
+              });
+            break;
+          }
+        });
+        this.availableElements = availableElems;
       },
       showPreviewModalFunc() {
         this.currentElements = this.$refs['editableForm'].exportForm();
@@ -367,9 +425,9 @@
         this.currentElements = this.$refs['editableForm'].exportForm();
         let uniqueKeys = true;
         if(this.currentElements.length) {
-          this.currentElements.forEach((elem) => {
-            this.currentElements.forEach(elem2 => {
-              if(elem.name === elem2.name) {
+          this.currentElements.forEach((elem, idx) => {
+            this.currentElements.forEach((elem2, idx2) => {
+              if(idx !== idx2 && elem.name === elem2.name) {
                 uniqueKeys = false;
               }
             });
@@ -377,6 +435,7 @@
           if(!uniqueKeys) {
             this.showUniqueWarning = true;
           } else {
+            this.showUniqueWarning = false;
             this.showJson = true;
           }
         }

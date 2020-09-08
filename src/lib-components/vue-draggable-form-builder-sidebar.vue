@@ -9,8 +9,8 @@
           <div class="relative flex-1 px-4 sm:px-6">
             <h2 class="text-lg font-medium leading-6 text-gray-900 sm:truncate mb-4 uppercase">Available items</h2>
             <!-- Replace with your content -->
-            <draggable :list="availableItems" :group="{ name:'elements',  pull:'clone', put:false }" @end="onFormChanged()">
-              <div class="h-full border-2 border-dashed border-gray-300 py-2 px-3 mb-2" v-for="(elem, index) in availableItems" :key="index">
+            <draggable :list="propAvailableElements" :group="{ name:'elements',  pull:'clone', put:false }" @end="onFormChanged()">
+              <div class="h-full border-2 border-dashed border-gray-300 py-2 px-3 mb-2" v-for="(elem, index) in propAvailableElements" :key="index">
                 <VueFormBuilderButton :disabled="true" :model="elem" v-if="elem.type === 'button'" :key="index"></VueFormBuilderButton>
                 <VueFormBuilderInput :disabled="true" :model="elem" v-if="elem.type === 'input'" :key="index"></VueFormBuilderInput>
                 <VueFormBuilderToggle :disabled="true" :model="elem" v-if="elem.type === 'toggle'" :key="index"></VueFormBuilderToggle>
@@ -58,22 +58,16 @@
     },
     data() {
       return {
-        counter: 5,
-        initCounter: 5,
-        message: {
-          action: null,
-          amount: null,
-        },
-        availableItems: []
+        
       };
     },
     props: {
-      propAvailableItems: {
+      propAvailableElements: {
         required: true
       }
     },
     mounted() {
-      this.availableItems = this.propAvailableItems;
+      
     },
     computed: {
       
