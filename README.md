@@ -11,11 +11,12 @@
 
 # Get started
 ```javascript
-import { VueDraggableFormBuilderBuilder } from 'vue-draggable-form-builder';
+import { VueDraggableFormBuilderBuilder, VueDraggableFormBuilderForm } from 'vue-draggable-form-builder';
 
 ...
 components: {
-    VueDraggableFormBuilderBuilder
+    VueDraggableFormBuilderBuilder,
+    VueDraggableFormBuilderForm
 },
 
 ...
@@ -71,7 +72,7 @@ components: {
 
 # Rendering the form
 ```javascript
-<VueDraggableFormBuilderBuilder
+<VueDraggableFormBuilderForm
     :propCurrentElements="currentElements"
 />
 ```

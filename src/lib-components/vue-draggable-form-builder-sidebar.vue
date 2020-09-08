@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="hidden md:flex md:flex-shrink-0 shadow ">
+  <div class="hidden md:flex md:flex-shrink-0 shadow mt-8">
     <div class="flex flex-col w-64">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex flex-col h-0 flex-1 border-r border-gray-300 bg-gray-210">

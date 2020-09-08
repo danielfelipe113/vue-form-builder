@@ -3,7 +3,7 @@
 <template>
     <div class="flex flex-col  flex-1 bg-white ">
       <div class="px-4 pt-6 h-full border-gray-300" >
-        <h2 class="text-lg font-medium leading-6 text-gray-900 sm:truncate mb-4 uppercase">Form builder</h2>
+        
         <draggable v-model="currentElements" group="elements" class="" :options="{disabled: !editable}" @end="onFormChanged()">                  
           <div class="h-full py-4 px-3 mt-2 relative pt-" v-for="(elem, index) in currentElements" :key="index" :class="{' border-2 border-dashed border-gray-300': editable}">
             <div class="actionButtons flex absolute right-0" v-if="editable">
@@ -38,10 +38,251 @@
 
 </template>
 
-<style scoped>
+<style>
+
+  /* @tailwind base;
+  @tailwind components;
+  @tailwind utilities; */
   .actionButtons {
     top: 0.4rem;
   }
+
+  button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  .form-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    /* border-color: #d2d6dc;
+    border-width: 1px; */
+    border-radius: .375rem;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5
+}
+
+.form-input::-webkit-input-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-input::-moz-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-input:-ms-input-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-input::-ms-input-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-input::placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(164,202,254,.45);
+    border-color: #a4cafe
+}
+
+.form-textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border-color: #d2d6dc;
+    border-width: 1px;
+    border-radius: .375rem;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5
+}
+
+.form-textarea::-webkit-input-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-textarea::-moz-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-textarea:-ms-input-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-textarea::-ms-input-placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-textarea::placeholder {
+    color: #9fa6b2;
+    opacity: 1
+}
+
+.form-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(164,202,254,.45);
+    border-color: #a4cafe
+}
+
+.form-select {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%239fa6b2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    border-color: #d2d6dc;
+    border-width: 1px;
+    border-radius: .375rem;
+    padding: .5rem 2.5rem .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-position: right .5rem center;
+    background-size: 1.5em 1.5em
+}
+
+.form-select::-ms-expand {
+    color: #9fa6b2;
+    border: none
+}
+
+@media not print {
+    .form-select::-ms-expand {
+        display: none
+    }
+}
+
+@media print and (-ms-high-contrast:active),print and (-ms-high-contrast:none) {
+    .form-select {
+        padding-right: .75rem
+    }
+}
+
+.form-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(164,202,254,.45);
+    border-color: #a4cafe
+}
+
+.form-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    display: inline-block;
+    vertical-align: middle;
+    background-origin: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    flex-shrink: 0;
+    height: 1rem;
+    width: 1rem;
+    color: #3f83f8;
+    background-color: #fff;
+    border-color: #d2d6dc;
+    border-width: 1px;
+    border-radius: .25rem
+}
+
+.form-checkbox:checked {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L7 8.586 5.707 7.293z'/%3E%3C/svg%3E");
+    border-color: transparent;
+    background-color: currentColor;
+    background-size: 100% 100%;
+    background-position: 50%;
+    background-repeat: no-repeat
+}
+
+@media not print {
+    .form-checkbox::-ms-check {
+        border-width: 1px;
+        color: transparent;
+        background: inherit;
+        border-color: inherit;
+        border-radius: inherit
+      }
+    }
+
+    .form-checkbox:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(164,202,254,.45);
+        border-color: #a4cafe
+    }
+
+    .form-checkbox:checked:focus {
+        border-color: transparent
+    }
+
+    .form-radio {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+        display: inline-block;
+        vertical-align: middle;
+        background-origin: border-box;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        flex-shrink: 0;
+        border-radius: 100%;
+        height: 1rem;
+        width: 1rem;
+        color: #3f83f8;
+        background-color: #fff;
+        border-color: #d2d6dc;
+        border-width: 1px
+    }
+
+    .form-radio:checked {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3'/%3E%3C/svg%3E");
+        border-color: transparent;
+        background-color: currentColor;
+        background-size: 100% 100%;
+        background-position: 50%;
+        background-repeat: no-repeat
+    }
+
+    @media not print {
+        .form-radio::-ms-check {
+            border-width: 1px;
+            color: transparent;
+            background: inherit;
+            border-color: inherit;
+            border-radius: inherit
+        }
+    }
+
+    .form-radio:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(164,202,254,.45);
+        border-color: #a4cafe
+    }
+
+    .form-radio:checked:focus {
+        border-color: transparent
+    }
 </style>
 
 <script>
