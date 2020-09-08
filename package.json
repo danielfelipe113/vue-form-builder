@@ -1,11 +1,11 @@
 {
-  "name": "vue-form-builder",
+  "name": "vue-draggable-form-builder",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/vue-form-builder.ssr.js",
-  "browser": "dist/vue-form-builder.esm.js",
-  "module": "dist/vue-form-builder.esm.js",
-  "unpkg": "dist/vue-form-builder.min.js",
+  "main": "dist/vue-draggable-form-builder.ssr.js",
+  "browser": "dist/vue-draggable-form-builder.esm.js",
+  "module": "dist/vue-draggable-form-builder.esm.js",
+  "unpkg": "dist/vue-draggable-form-builder.min.js",
   "files": [
     "dist/*",
     "src/**/*.vue"

@@ -46,14 +46,14 @@
 
 <script>
   import draggable from 'vuedraggable';
-  import VueFormBuilderButton from './inputs/vue-form-builder-button.vue';
-  import VueFormBuilderInput from './inputs/vue-form-builder-input.vue';
-  import VueFormBuilderToggle from './inputs/vue-form-builder-toggle.vue';
-  import VueFormBuilderSelect from './inputs/vue-form-builder-select.vue';
-  import VueFormBuilderRadio from './inputs/vue-form-builder-radio.vue';
-  import VueFormBuilderCheckbox from './inputs/vue-form-builder-checkbox.vue';
-  import VueFormBuilderTextarea from './inputs/vue-form-builder-textarea.vue';
-  import VueFormBuilderElementModalHandler from './vue-form-builder-element-modal-handler.vue';
+  import VueFormBuilderButton from './inputs/vue-draggable-form-builder-button.vue';
+  import VueFormBuilderInput from './inputs/vue-draggable-form-builder-input.vue';
+  import VueFormBuilderToggle from './inputs/vue-draggable-form-builder-toggle.vue';
+  import VueFormBuilderSelect from './inputs/vue-draggable-form-builder-select.vue';
+  import VueFormBuilderRadio from './inputs/vue-draggable-form-builder-radio.vue';
+  import VueFormBuilderCheckbox from './inputs/vue-draggable-form-builder-checkbox.vue';
+  import VueFormBuilderTextarea from './inputs/vue-draggable-form-builder-textarea.vue';
+  import VueFormBuilderElementModalHandler from './vue-draggable-form-builder-element-modal-handler.vue';
   
   export default {
     name: 'VueFormBuilderForm',

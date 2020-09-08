@@ -70,7 +70,7 @@ if (!argv.format || argv.format === 'es') {
     ...baseConfig,
     external,
     output: {
-      file: 'dist/vue-form-builder.esm.js',
+      file: 'dist/vue-draggable-form-builder.esm.js',
       format: 'esm',
       exports: 'named',
     },
@@ -104,7 +104,7 @@ if (!argv.format || argv.format === 'cjs') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-form-builder.ssr.js',
+      file: 'dist/vue-draggable-form-builder.ssr.js',
       format: 'cjs',
       name: 'VueFormBuilder',
       exports: 'named',
@@ -133,7 +133,7 @@ if (!argv.format || argv.format === 'iife') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-form-builder.min.js',
+      file: 'dist/vue-draggable-form-builder.min.js',
       format: 'iife',
       name: 'VueFormBuilder',
       exports: 'named',

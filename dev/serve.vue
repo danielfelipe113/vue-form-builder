@@ -12,6 +12,6 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <vue-form-builder-builder />
+    <vue-draggable-form-builder-builder />
   </div>
 </template>

@@ -323,8 +323,8 @@
 </style>
 
 <script>
-  import VueFormBuilderForm from './vue-form-builder-form.vue';
-  import VueFormBuilderDraggableSidebar from './vue-form-builder-draggable-sidebar.vue';
+  import VueFormBuilderForm from './vue-draggable-form-builder-form.vue';
+  import VueFormBuilderDraggableSidebar from './vue-draggable-form-builder-draggable-sidebar.vue';
 
   export default {
     name: 'VueFormBuilderBuilder',
