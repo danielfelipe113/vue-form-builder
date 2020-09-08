@@ -3,7 +3,7 @@
 <template>
   <div class=" pb-12">
     
-    <div class="rounded-md bg-red-100 p-4 fixed w-full z-10" v-if="showUniqueWarning">
+    <div class="rounded-md bg-red-100 p-4 fixed top-0 w-full z-10" v-if="showUniqueWarning">
       <div class="flex">
         <div class="flex-shrink-0">
           <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
@@ -18,10 +18,10 @@
       </div>
     </div>
 
-    <div class=" flex bg-white">
-      <VueDraggableFormBuilderForm ref="editableForm" :propCurrentElements="currentElements" :editable="true" @onFormChanged="onFormChanged"></VueDraggableFormBuilderForm>
+    <div class=" flex bg-white" v-if="!!currentElements">
+      <VueDraggableFormBuilderForm ref="editableForm" :propCurrentElements="currentElements" :editable="true" @onFormChanged="onFormChanged" ></VueDraggableFormBuilderForm>
 
-      <VueFormBuilderDraggableSidebar :propAvailableItems="availableItems" @onFormChanged="onFormChanged"></VueFormBuilderDraggableSidebar>
+      <VueFormBuilderDraggableSidebar :propAvailableItems="propAvailableItems" @onFormChanged="onFormChanged"></VueFormBuilderDraggableSidebar>
     </div>
 
     <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense justify-items-center">
@@ -67,7 +67,6 @@
         </div>
       </div>
     </div>
-
     <pre v-if="showJson">
       {{
         currentElements
@@ -79,9 +78,6 @@
 </template>
 
 <style>
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
 
   button:disabled {
     @apply opacity-50 cursor-not-allowed;
@@ -334,77 +330,22 @@
     },
     data() {
       return {
-        availableItems: [
-          {
-            "label": "Label",
-            "type": "select",
-            "description": "a description",
-            "options": [
-              {
-                label: "My option",
-                value: 1,
-                selected: true
-              }
-            ],
-            "name": "my_unique_key",
-          },
-          {
-            "label": "Text",
-            "type": "input",
-            "description": "a description",
-            "placeholder": "placeholder",
-            "value": "",
-            "name": "my_unique_key",
-          },
-          {
-            "label": "Textarea",
-            "type": "textarea",
-            "description": "a description",
-            "placeholder": "placeholder",
-            "value": "",
-            "name": "my_unique_key",
-          }
-        ],
-        currentElements: [
-          {
-            "label": "Label",
-            "type": "select",
-            "description": "a description",
-            "options": [
-              {
-                label: "My option",
-                value: 1,
-                selected: true
-              },
-              {
-                label: "My option",
-                value: 1,
-                selected: true
-              },
-            ],
-            "name": "my_unique_key",
-          },
-          {
-            "label": "Text",
-            "type": "input",
-            "description": "a description",
-            "placeholder": "placeholder",
-            "value": "",
-            "name": "my_unique_key",
-          },
-          {
-            "label": "Textarea",
-            "type": "textarea",
-            "description": "a description",
-            "placeholder": "placeholder",
-            "value": "",
-            "name": "my_unique_key",
-          }
-        ],
         showPreviewModal: false,
         showJson: false,
         showUniqueWarning: false,
+        currentElements: undefined
       };
+    },
+    props: {
+      propAvailableItems: {
+        required: true
+      },
+      propCurrentElements: {
+        required: true
+      }
+    },
+    mounted() {
+        this.currentElements = this.propCurrentElements;
     },
     computed: {
      
