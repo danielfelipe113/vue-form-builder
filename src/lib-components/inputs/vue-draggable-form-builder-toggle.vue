@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'VueFormBuilderRadio',
+  name: 'VueDraggableFormBuilderToggle',
   data() {
     return {
       counter: 5,

@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'VueFormBuilderTextarea',
+  name: 'VueDraggableFormBuilderTextarea',
   data() {
     return {
       

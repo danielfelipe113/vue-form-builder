@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'VueFormBuilderButton',
+  name: 'VueDraggableFormBuilderButton',
   data() {
     return {
      

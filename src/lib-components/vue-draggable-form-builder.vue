@@ -19,7 +19,7 @@
     </div>
 
     <div class=" flex bg-white">
-      <VueFormBuilderForm ref="editableForm" :propCurrentElements="currentElements" :editable="true" @onFormChanged="onFormChanged"></VueFormBuilderForm>
+      <VueDraggableFormBuilderForm ref="editableForm" :propCurrentElements="currentElements" :editable="true" @onFormChanged="onFormChanged"></VueDraggableFormBuilderForm>
 
       <VueFormBuilderDraggableSidebar :propAvailableItems="availableItems" @onFormChanged="onFormChanged"></VueFormBuilderDraggableSidebar>
     </div>
@@ -50,7 +50,7 @@
         
         <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="width: 95%;" :class="{'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95': !showPreviewModal, 'opacity-100 translate-y-0 sm:scale-100': showPreviewModal}">
           <!-- Content -->
-          <VueFormBuilderForm :propCurrentElements="currentElements" ></VueFormBuilderForm>
+          <VueDraggableFormBuilderForm :propCurrentElements="currentElements" ></VueDraggableFormBuilderForm>
           <!-- Footer -->
           <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense justify-items-center">
             <span class="flex w-full rounded-md shadow-sm sm:col-start-2 max-w-xs">
@@ -323,13 +323,13 @@
 </style>
 
 <script>
-  import VueFormBuilderForm from './vue-draggable-form-builder-form.vue';
-  import VueFormBuilderDraggableSidebar from './vue-draggable-form-builder-draggable-sidebar.vue';
+  import VueDraggableFormBuilderForm from './vue-draggable-form-form.vue';
+  import VueFormBuilderDraggableSidebar from './vue-draggable-form-builder-sidebar.vue';
 
   export default {
-    name: 'VueFormBuilderBuilder',
+    name: 'VueDraggableFormBuilderBuilder',
     components: {
-      VueFormBuilderForm,
+      VueDraggableFormBuilderForm,
       VueFormBuilderDraggableSidebar
     },
     data() {

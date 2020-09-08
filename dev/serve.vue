@@ -1,17 +1,17 @@
 <script>
 import Vue from 'vue';
-import { VueFormBuilderBuilder } from '@/entry';
+import { VueDraggableFormBuilderBuilder } from '@/entry';
 
 export default Vue.extend({
   name: 'ServeDev',
   components: {
-    VueFormBuilderBuilder,
+    VueDraggableFormBuilderBuilder,
   }
 });
 </script>
 
 <template>
   <div id="app">
-    <vue-draggable-form-builder-builder />
+    <VueDraggableFormBuilderBuilder/>
   </div>
 </template>

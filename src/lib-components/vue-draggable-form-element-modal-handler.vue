@@ -183,7 +183,7 @@ class NewOption {
     }
 }
 export default {
-    name: 'VueFormBuilderElementModalHandler',
+    name: 'VueDraggableFormBuilderElementModalHandler',
     data() {
         return {
             showModalProp: false,

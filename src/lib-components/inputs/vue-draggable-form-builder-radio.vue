@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'VueFormBuilderCheckbox',
+  name: 'VueDraggableFormBuilderRadio',
   data() {
     return {
       counter: 5,

@@ -22,7 +22,7 @@ export default {
   components: {
     
   },
-  name: 'VueFormBuilderInput',
+  name: 'VueDraggableFormBuilderInput',
   data() {
     return {
       

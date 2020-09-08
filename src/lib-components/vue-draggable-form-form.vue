@@ -20,20 +20,20 @@
                 </svg>
               </button>
             </div>
-            <VueFormBuilderButton :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'button'" :key="index"></VueFormBuilderButton>
-            <VueFormBuilderInput :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'input'" :key="index"></VueFormBuilderInput>
-            <VueFormBuilderToggle :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'toggle'" :key="index"></VueFormBuilderToggle>
-            <VueFormBuilderSelect :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'select'" :key="index"></VueFormBuilderSelect>
-            <VueFormBuilderCheckbox :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'checkbox'" :key="index"></VueFormBuilderCheckbox>
-            <VueFormBuilderRadio :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'radio'" :key="index"></VueFormBuilderRadio>
-            <VueFormBuilderTextarea :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'textarea'" :key="index"></VueFormBuilderTextarea>
+            <VueDraggableFormBuilderButton :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'button'" :key="index"></VueDraggableFormBuilderButton>
+            <VueDraggableFormBuilderInput :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'input'" :key="index"></VueDraggableFormBuilderInput>
+            <VueDraggableFormBuilderToggle :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'toggle'" :key="index"></VueDraggableFormBuilderToggle>
+            <VueDraggableFormBuilderSelect :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'select'" :key="index"></VueDraggableFormBuilderSelect>
+            <VueDraggableFormBuilderCheckbox :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'checkbox'" :key="index"></VueDraggableFormBuilderCheckbox>
+            <VueDraggableFormBuilderRadio :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'radio'" :key="index"></VueDraggableFormBuilderRadio>
+            <VueDraggableFormBuilderTextarea :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'textarea'" :key="index"></VueDraggableFormBuilderTextarea>
           </div>                
         </draggable>
       </div>
       
 
 
-      <VueFormBuilderElementModalHandler :model="selectedElement" ref="elementHandlerRef" @onConfirm="onEditModalHandlerClose" v-if="editable"></VueFormBuilderElementModalHandler>
+      <VueDraggableFormBuilderElementModalHandler :model="selectedElement" ref="elementHandlerRef" @onConfirm="onEditModalHandlerClose" v-if="editable"></VueDraggableFormBuilderElementModalHandler>
     </div>
 
 </template>
@@ -46,27 +46,27 @@
 
 <script>
   import draggable from 'vuedraggable';
-  import VueFormBuilderButton from './inputs/vue-draggable-form-builder-button.vue';
-  import VueFormBuilderInput from './inputs/vue-draggable-form-builder-input.vue';
-  import VueFormBuilderToggle from './inputs/vue-draggable-form-builder-toggle.vue';
-  import VueFormBuilderSelect from './inputs/vue-draggable-form-builder-select.vue';
-  import VueFormBuilderRadio from './inputs/vue-draggable-form-builder-radio.vue';
-  import VueFormBuilderCheckbox from './inputs/vue-draggable-form-builder-checkbox.vue';
-  import VueFormBuilderTextarea from './inputs/vue-draggable-form-builder-textarea.vue';
-  import VueFormBuilderElementModalHandler from './vue-draggable-form-builder-element-modal-handler.vue';
+  import VueDraggableFormBuilderButton from './inputs/vue-draggable-form-builder-button.vue';
+  import VueDraggableFormBuilderInput from './inputs/vue-draggable-form-builder-input.vue';
+  import VueDraggableFormBuilderToggle from './inputs/vue-draggable-form-builder-toggle.vue';
+  import VueDraggableFormBuilderSelect from './inputs/vue-draggable-form-builder-select.vue';
+  import VueDraggableFormBuilderRadio from './inputs/vue-draggable-form-builder-radio.vue';
+  import VueDraggableFormBuilderCheckbox from './inputs/vue-draggable-form-builder-checkbox.vue';
+  import VueDraggableFormBuilderTextarea from './inputs/vue-draggable-form-builder-textarea.vue';
+  import VueDraggableFormBuilderElementModalHandler from './vue-draggable-form-element-modal-handler.vue';
   
   export default {
-    name: 'VueFormBuilderForm',
+    name: 'VueDraggableFormBuilderForm',
     components: {
       draggable,
-      VueFormBuilderButton,
-      VueFormBuilderInput,
-      VueFormBuilderToggle,
-      VueFormBuilderSelect,
-      VueFormBuilderCheckbox,
-      VueFormBuilderRadio,
-      VueFormBuilderTextarea,
-      VueFormBuilderElementModalHandler
+      VueDraggableFormBuilderButton,
+      VueDraggableFormBuilderInput,
+      VueDraggableFormBuilderToggle,
+      VueDraggableFormBuilderSelect,
+      VueDraggableFormBuilderCheckbox,
+      VueDraggableFormBuilderRadio,
+      VueDraggableFormBuilderTextarea,
+      VueDraggableFormBuilderElementModalHandler
     },
     data() {
       return {
