@@ -2,7 +2,7 @@
 
 <template>
   
-<div class="fixed z-10 inset-0 overflow-y-auto" :class="{'absolute pointer-events-none opacity-0 ease-in duration-200': !showModalProp, 'ease-out duration-300 opacity-100': showModalProp}">
+<div class="fixed z-10 inset-0 overflow-y-auto" :class="{'absolute pointer-events-none opacity-0 ease-in duration-200': !showModal, 'ease-out duration-300 opacity-100': showModal}">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity">
             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -10,18 +10,18 @@
 
             <!-- This element is to trick the browser into centering the modal contents. -->
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" :class="{'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95': !showModalProp, 'opacity-100 translate-y-0 sm:scale-100': showModalProp}">
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" :class="{'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95': !showModal, 'opacity-100 translate-y-0 sm:scale-100': showModal}">
             <div>
                 <div class="">
                     <h3 class="text-center text-lg leading-6 font-medium text-gray-700 mb-6" id="modal-headline">
-                        Edit <span class="text-gray-900">{{ model.type }}</span> field
+                        Edit <span class="text-gray-900">{{ originalModel.type }}</span> field
                     </h3>
                     <div class="mt-2 mb-4">
                         <!-- name -->
                         <div class="mb-2">
                             <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Name *</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input type="text" id="name" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Name" v-model="model.name" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && showNameError}" @change="validateForm">
+                                <input type="text" id="name" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Name" v-model="originalModel.name" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && showNameError}" @change="validateForm">
                             </div>
                             <p class="mt-2 text-sm text-gray-500" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && showNameError}">An unique key per form and should not contain spaces or special characters</p>
                         </div>
@@ -29,14 +29,14 @@
                         <div class="mb-2">
                             <label for="label" class="block text-sm font-medium leading-5 text-gray-700">Label *</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input type="text" id="label" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Label" v-model="model.label" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !model.label}">
+                                <input type="text" id="label" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Label" v-model="originalModel.label" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !originalModel.label}">
                             </div>
                         </div>
                         <!-- Placeholder -->
-                        <div class="mb-2" v-if="model.type !== 'select'">
+                        <div class="mb-2" v-if="originalModel.type !== 'select'">
                             <label for="label" class="block text-sm font-medium leading-5 text-gray-700">Placeholder</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input type="text" id="placeholder" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Placeholder" v-model="model.placeholder">
+                                <input type="text" id="placeholder" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Placeholder" v-model="originalModel.placeholder">
                             </div>
                         </div>
                         <!-- Description -->
@@ -46,12 +46,12 @@
                             </label>
                             <div class="">
                                 <div class=" flex rounded-md shadow-sm">
-                                <textarea id="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="model.description"></textarea>
+                                <textarea id="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="originalModel.description"></textarea>
                                 </div>
                             </div>
                         </div>
                         <!-- Values -->
-                        <div class="flex flex-col mb-2" v-if="model.type === 'select'">
+                        <div class="flex flex-col mb-2" v-if="originalModel.type === 'select'">
                             <h2 class="block text-sm font-medium leading-5 text-gray-700">
                                 Options *
                             </h2>
@@ -74,7 +74,7 @@
                                             </thead>
                                             <tbody>
                                                 <!-- Odd row -->
-                                                <tr :class="{'bg-white': idx%2 === 0, 'bg-gray-100': idx%2 !== 0}" v-for="(option, idx) in model.options" :key="idx">
+                                                <tr :class="{'bg-white': idx%2 === 0, 'bg-gray-100': idx%2 !== 0}" v-for="(option, idx) in originalModel.options" :key="idx">
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
                                                         {{option.label}}
                                                     </td>
@@ -92,15 +92,15 @@
                                                 </tr>
 
                                                 <!-- Even row -->
-                                                <tr class="h-20" :class="{'bg-white': model.options.length%2 - 1 !== 0, 'bg-gray-100': model.options.length%2 - 1 === 0}">
+                                                <tr class="h-20" :class="{'bg-white': originalModel.options.length%2 - 1 !== 0, 'bg-gray-100': originalModel.options.length%2 - 1 === 0}">
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
                                                         <div class="mt-1 relative rounded-md shadow-sm">
-                                                            <input type="text" id="optionName" class="border border-gray-300 form-input block w-full sm:text-sm sm:leading-5" placeholder="Name" v-model="newOption.label" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !model.options.length}">
+                                                            <input type="text" id="optionName" class="border border-gray-300 form-input block w-full sm:text-sm sm:leading-5" placeholder="Name" v-model="newOption.label" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !originalModel.options.length}">
                                                         </div>
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                                         <div class="mt-1 relative rounded-md shadow-sm">
-                                                            <input type="text" id="optionValue" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Value" v-model="newOption.value" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !model.options.length}">
+                                                            <input type="text" id="optionValue" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Value" v-model="newOption.value" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !originalModel.options.length}">
                                                         </div>
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 flex justify-center items-center h-20">
@@ -186,11 +186,12 @@ export default {
     name: 'VueDraggableFormBuilderElementModalHandler',
     data() {
         return {
-            showModalProp: false,
+            showModal: false,
             submitted: false,
             newOption: new NewOption(),
             hasErrors: false,
-            showNameError: false
+            showNameError: false,
+            originalModel: {}
         }
     },
     props: {
@@ -198,27 +199,32 @@ export default {
             required: true
         }
     },
+    watch: {
+        model(newVal, oldVal) {
+            this.originalModel = JSON.parse(JSON.stringify(newVal));
+        }
+    },
     methods: {
-        showModal() {
-            this.showModalProp = true;
+        showModalFunc() {
+            this.showModal = true;
         },
         hideModal() {
             // Reset modal on hide
             this.submitted = false;
             this.hasErrors = false;
             this.newOption = new NewOption();
-            this.showModalProp = false;
+            this.showModal = false;
             this.showNameError = false;
         },
         closeModal() {
             this.hideModal();
-            this.$emit('onModalHidden');
+            this.$emit('onHidden');
         },
         confirmChanges() {
             this.submitted = true;
             const isValid = this.validateForm();
             if(isValid) {
-                this.$emit('onConfirm', this.model);
+                this.$emit('onConfirm', this.originalModel);
                 this.hideModal();                
             } else {
                 this.hasErrors = true;
@@ -226,10 +232,10 @@ export default {
         },
         validateForm() {
             let isValid = true;
-            if(this.model.type === 'select' && !this.model.options.length) {
+            if(this.originalModel.type === 'select' && !this.originalModel.options.length) {
                 isValid = false;
             }
-            if(!this.model.label && !this.model.name) {
+            if(!this.originalModel.label && !this.originalModel.name) {
                 isValid = false;
             }
             const isKeyNameValid = this.validateKeyName();
@@ -242,15 +248,15 @@ export default {
             return isValid;
         },
         validateKeyName() {
-            return this.model.name.match(/^[a-zA-Z0-9-_]{0,}$/);
+            return this.originalModel.name.match(/^[a-zA-Z0-9-_]{0,}$/);
         },
         addNewOption() {
-            this.model.options.push(this.newOption);
+            this.originalModel.options.push(this.newOption);
             this.newOption = new NewOption();
             this.validateForm();
         },
         removeOption(idx) {
-            this.model.options.splice(idx, 1);
+            this.originalModel.options.splice(idx, 1);
         }
     },
 };

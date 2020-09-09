@@ -31,9 +31,13 @@
         </draggable>
       </div>
       
+      <!-- <pre>
+        {{
+          currentElements
+        }}
+      </pre> -->
 
-
-      <VueDraggableFormBuilderElementModalHandler :model="selectedElement" ref="elementHandlerRef" @onConfirm="onEditModalHandlerClose" v-if="editable"></VueDraggableFormBuilderElementModalHandler>
+      <VueDraggableFormBuilderElementModalHandler :model="selectedElement" ref="elementHandlerRef" @onConfirm="onModalConfirm" @onHidden="onModalHidden" v-if="editable && enableModal"></VueDraggableFormBuilderElementModalHandler>
     </div>
 
 </template>
@@ -68,6 +72,7 @@
       return {
         currentElements: [],
         selectedElement: {},
+        selectedIdx: null,
         enableModal: false,
       };
     },
@@ -87,18 +92,28 @@
     },
     methods: {
       editElem(elem, idx) {
-        this.enableModal = true;;
-        if(!!this.$refs['elementHandlerRef']) {
-          this.selectedElement = elem;
-          this.$refs['elementHandlerRef'].showModal();
-        }
+        this.enableModal = true;
+        this.$nextTick(() => {
+          if(!!this.$refs['elementHandlerRef']) {
+            this.selectedElement = elem;
+            this.selectedIdx = idx;
+            this.$refs['elementHandlerRef'].showModalFunc();
+          }
+        });
       },
       removeElem(elem, idx) {
         this.currentElements.splice(idx, 1);
         this.$forceUpdate();
       },
-      onEditModalHandlerClose(elem) {
-        
+      onModalHidden() {
+        this.enableModal = false;
+        this.selectedElement = {};
+        this.selectedIdx = null;
+      },
+      onModalConfirm(elem) {
+        this.enableModal = false;
+        this.currentElements[this.selectedIdx] = elem;
+        this.$forceUpdate();
       },
       exportForm() {
         return [...this.currentElements];
