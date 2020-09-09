@@ -79,8 +79,13 @@
       },
       clone: function (original){
         
-        
-        return Object.assign({}, original);
+        // var element = {}
+        // for (var key in original) {
+        //   if(original.hasOwnProperty(key)) {
+        //     element[key] = original[key]
+        //   }
+        // }
+        return JSON.parse(JSON.stringify(original));
       },
     },
   };

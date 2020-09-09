@@ -212,6 +212,7 @@ export default {
         },
         closeModal() {
             this.hideModal();
+            this.$emit('onModalHidden');
         },
         confirmChanges() {
             this.submitted = true;

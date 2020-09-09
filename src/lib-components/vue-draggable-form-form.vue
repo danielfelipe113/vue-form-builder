@@ -38,11 +38,84 @@
 
 </template>
 
+
+
+<script>
+  import draggable from 'vuedraggable';
+  import VueDraggableFormBuilderButton from './inputs/vue-draggable-form-builder-button.vue';
+  import VueDraggableFormBuilderInput from './inputs/vue-draggable-form-builder-input.vue';
+  import VueDraggableFormBuilderToggle from './inputs/vue-draggable-form-builder-toggle.vue';
+  import VueDraggableFormBuilderSelect from './inputs/vue-draggable-form-builder-select.vue';
+  import VueDraggableFormBuilderRadio from './inputs/vue-draggable-form-builder-radio.vue';
+  import VueDraggableFormBuilderCheckbox from './inputs/vue-draggable-form-builder-checkbox.vue';
+  import VueDraggableFormBuilderTextarea from './inputs/vue-draggable-form-builder-textarea.vue';
+  import VueDraggableFormBuilderElementModalHandler from './vue-draggable-form-element-modal-handler.vue';
+  
+  export default {
+    name: 'VueDraggableFormBuilderForm',
+    components: {
+      draggable,
+      VueDraggableFormBuilderButton,
+      VueDraggableFormBuilderInput,
+      VueDraggableFormBuilderToggle,
+      VueDraggableFormBuilderSelect,
+      VueDraggableFormBuilderCheckbox,
+      VueDraggableFormBuilderRadio,
+      VueDraggableFormBuilderTextarea,
+      VueDraggableFormBuilderElementModalHandler
+    },
+    data() {
+      return {
+        currentElements: [],
+        selectedElement: {},
+        enableModal: false,
+      };
+    },
+    props: {
+      editable: {
+        boolean: false
+      },
+      propCurrentElements: {
+        required: true
+      }
+    },
+    mounted() {
+      this.currentElements = this.propCurrentElements;
+    },
+    computed: {
+      
+    },
+    methods: {
+      editElem(elem, idx) {
+        this.enableModal = true;;
+        if(!!this.$refs['elementHandlerRef']) {
+          this.selectedElement = elem;
+          this.$refs['elementHandlerRef'].showModal();
+        }
+      },
+      removeElem(elem, idx) {
+        this.currentElements.splice(idx, 1);
+        this.$forceUpdate();
+      },
+      onEditModalHandlerClose(elem) {
+        
+      },
+      exportForm() {
+        return [...this.currentElements];
+      },
+      onFormChanged() {
+        this.$emit('onFormChanged');
+        this.$forceUpdate();
+      }
+    },
+  };
+</script>
+
 <style>
 
-  /* @tailwind base;
+  @tailwind base;
   @tailwind components;
-  @tailwind utilities; */
+  @tailwind utilities;
   .actionButtons {
     top: 0.4rem;
   }
@@ -285,72 +358,3 @@
         border-color: transparent
     }
 </style>
-
-<script>
-  import draggable from 'vuedraggable';
-  import VueDraggableFormBuilderButton from './inputs/vue-draggable-form-builder-button.vue';
-  import VueDraggableFormBuilderInput from './inputs/vue-draggable-form-builder-input.vue';
-  import VueDraggableFormBuilderToggle from './inputs/vue-draggable-form-builder-toggle.vue';
-  import VueDraggableFormBuilderSelect from './inputs/vue-draggable-form-builder-select.vue';
-  import VueDraggableFormBuilderRadio from './inputs/vue-draggable-form-builder-radio.vue';
-  import VueDraggableFormBuilderCheckbox from './inputs/vue-draggable-form-builder-checkbox.vue';
-  import VueDraggableFormBuilderTextarea from './inputs/vue-draggable-form-builder-textarea.vue';
-  import VueDraggableFormBuilderElementModalHandler from './vue-draggable-form-element-modal-handler.vue';
-  
-  export default {
-    name: 'VueDraggableFormBuilderForm',
-    components: {
-      draggable,
-      VueDraggableFormBuilderButton,
-      VueDraggableFormBuilderInput,
-      VueDraggableFormBuilderToggle,
-      VueDraggableFormBuilderSelect,
-      VueDraggableFormBuilderCheckbox,
-      VueDraggableFormBuilderRadio,
-      VueDraggableFormBuilderTextarea,
-      VueDraggableFormBuilderElementModalHandler
-    },
-    data() {
-      return {
-        currentElements: [],
-        selectedElement: {}
-      };
-    },
-    props: {
-      editable: {
-        boolean: false
-      },
-      propCurrentElements: {
-        required: true
-      }
-    },
-    mounted() {
-      this.currentElements = this.propCurrentElements;
-    },
-    computed: {
-      
-    },
-    methods: {
-      editElem(elem, idx) {
-        if(!!this.$refs['elementHandlerRef']) {
-          this.selectedElement = elem;
-          this.$refs['elementHandlerRef'].showModal();
-        }
-      },
-      removeElem(elem, idx) {
-        this.currentElements.splice(idx, 1);
-        this.$forceUpdate();
-      },
-      onEditModalHandlerClose(elem) {
-        
-      },
-      exportForm() {
-        return [...this.currentElements];
-      },
-      onFormChanged() {
-        this.$emit('onFormChanged');
-        this.$forceUpdate();
-      }
-    },
-  };
-</script>
