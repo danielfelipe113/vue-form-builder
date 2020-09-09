@@ -31,7 +31,7 @@ export default {
   props: {
     isBuilder: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     model: {
       required: true
