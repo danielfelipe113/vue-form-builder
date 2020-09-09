@@ -100,6 +100,7 @@
             this.selectedElement = elem;
             this.selectedIdx = idx;
             this.$refs['elementHandlerRef'].showModalFunc();
+            document.body.style.overflow = 'hidden';
           }
         });
       },
@@ -111,6 +112,7 @@
         this.enableModal = false;
         this.selectedElement = {};
         this.selectedIdx = null;
+        document.body.style.overflow = 'auto';
       },
       onModalConfirm(elem) {
         this.enableModal = false;
@@ -129,10 +131,10 @@
 </script>
 
 <style>
-/* 
+
   @tailwind base;
   @tailwind components;
-  @tailwind utilities; */
+  @tailwind utilities;
   .actionButtons {
     top: 0.4rem;
   }
