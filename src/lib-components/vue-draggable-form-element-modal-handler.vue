@@ -83,7 +83,7 @@
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 flex justify-center items-center">
                                                         <!-- Remove -->
-                                                        <button class="flex-shrink-0 mr-1 hover:bg-gray-200 active:bg-gray-300 transition ease-in-out duration-150 rounded" @click="removeOption(idx)">
+                                                        <button  type="button" class="flex-shrink-0 mr-1 hover:bg-gray-200 active:bg-gray-300 transition ease-in-out duration-150 rounded" @click="removeOption(idx)">
                                                             <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
                                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                                                             </svg>
@@ -105,7 +105,7 @@
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 flex justify-center items-center h-20">
                                                         <!-- Add -->
-                                                        <button class="flex-shrink-0 mr-1 hover:bg-gray-200 active:bg-gray-300 transition ease-in-out duration-150 rounded" @click="addNewOption()">
+                                                        <button type="button" class="flex-shrink-0 mr-1 hover:bg-gray-200 active:bg-gray-300 transition ease-in-out duration-150 rounded" @click="addNewOption()">
                                                             <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                             </svg>

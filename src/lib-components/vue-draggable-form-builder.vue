@@ -3,7 +3,7 @@
 <template>
   <div class=" pb-12">
     
-    <div class="rounded-md bg-red-100 p-4 fixed top-0 w-full z-10" v-if="showUniqueWarning">
+    <div class="rounded-md bg-red-100 p-4 fixed top-0 w-full z-10" v-if="showGeneralErrors">
       <div class="flex">
         <div class="flex-shrink-0">
           <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
@@ -11,11 +11,14 @@
           </svg>
         </div>
         <div class="ml-3">
-          <h3 class="text-sm leading-5 font-medium text-red-800">
+          <h3 class="text-sm leading-5 font-medium text-red-800" v-if="showUniqueWarning">
             Every Name key should be unique among the form
           </h3>
+          <h3 class="text-sm leading-5 font-medium text-red-800" v-if="showEmptyWarning">
+            Please add at least one element to the form
+          </h3>
         </div>
-        <button class="absolute right-0 mr-4" @click="showUniqueWarning = !showUniqueWarning">
+        <button type="button" class="absolute right-0 mr-4" @click="showUniqueWarning = !showUniqueWarning">
           <svg class="h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -32,7 +35,7 @@
       </div>
     </div>
 
-    <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense justify-items-center">
+    <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense" style="justify-items: center;">
       <span class="flex w-full rounded-md shadow-sm sm:col-start-2 max-w-sm">
           <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="saveForm()" :disabled="!!this.currentElements && !this.currentElements.length">
               Save form
@@ -55,12 +58,11 @@
 
         <!-- This element is to trick the browser into centering the modal contents. -->
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
-        
         <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" style="width: 95%;" :class="{'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95': !showPreviewModal, 'opacity-100 translate-y-0 sm:scale-100': showPreviewModal}">
           <!-- Content -->
-          <VueDraggableFormBuilderForm :propCurrentElements="currentElements" v-if="!!currentElements"></VueDraggableFormBuilderForm>
+          <VueDraggableFormBuilderForm :propCurrentElements="currentElements" v-if="showPreviewModal"></VueDraggableFormBuilderForm>
           <!-- Footer -->
-          <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense justify-items-center">
+          <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense" style="justify-items: center;">
             <span class="flex w-full rounded-md shadow-sm sm:col-start-2 max-w-xs">
                 <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5 " @click="saveForm()" >
                     Save form
@@ -75,12 +77,6 @@
         </div>
       </div>
     </div>
-    <pre v-if="showJson">
-      {{
-        currentElements
-      }}
-
-    </pre>
   </div>
 
 </template>
@@ -108,7 +104,9 @@
         showJson: false,
         showUniqueWarning: false,
         currentElements: undefined,
-        availableElements: undefined
+        availableElements: undefined,
+        showGeneralErrors: false,
+        showEmptyWarning: false
       };
     },
     props: {
@@ -180,11 +178,14 @@
       },
       showPreviewModalFunc() {
         this.currentElements = this.$refs['editableForm'].exportForm();
-        this.showPreviewModal = true;
+        this.$nextTick(() => {
+          this.showPreviewModal = true;
+        });
       },
       onFormChanged() {
         this.currentElements = this.$refs['editableForm'].exportForm();
         this.showUniqueWarning = false;
+        this.$forceUpdate();
       },
       saveForm() {
         this.showPreviewModal = false;
@@ -200,9 +201,14 @@
           });
           if(!uniqueKeys) {
             this.showUniqueWarning = true;
+            this.showGeneralErrors = true;
+          } else if(!this.currentElements.length) {
+            this.showEmptyWarning = true;
+            this.showGeneralErrors = true;
           } else {
             this.showUniqueWarning = false;
-            this.showJson = true;
+            this.showGeneralErrors = false;
+            this.$emit('onFormSave', this.currentElements);
           }
         }
       }

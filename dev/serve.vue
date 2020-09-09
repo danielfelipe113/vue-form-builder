@@ -10,41 +10,13 @@ export default Vue.extend({
   data() {
     return {
       currentElements: [
-        {
-          "label": "Label",
-          "type": "select",
-          "description": "a description",
-          "options": [
-            {
-              label: "My option",
-              value: 1,
-              selected: true
-            },
-            {
-              label: "My option",
-              value: 1,
-              selected: true
-            },
-          ],
-          "name": "my_unique_key",
-        },
-        {
-          "label": "Input",
-          "type": "input",
-          "description": "a description",
-          "placeholder": "placeholder",
-          "value": "",
-          "name": "my_unique_key",
-        },
-        {
-          "label": "Textarea",
-          "type": "textarea",
-          "description": "a description",
-          "placeholder": "placeholder",
-          "value": "",
-          "name": "my_unique_key",
-        }
+       
       ]
+    }
+  },
+  methods: {
+    onFormSave(form) {
+      debugger
     }
   }
 });
@@ -52,6 +24,6 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <VueDraggableFormBuilderBuilder :propAvailableElements="['input', 'select', 'textarea']" :propCurrentElements="currentElements"/>
+    <VueDraggableFormBuilderBuilder :propAvailableElements="['input', 'select', 'textarea']" :propCurrentElements="currentElements" @onFormSave="onFormSave"/>
   </div>
 </template>

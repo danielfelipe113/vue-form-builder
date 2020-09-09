@@ -9,7 +9,7 @@
           <div class="relative flex-1 px-4 sm:px-6">
             <h2 class="text-lg font-medium leading-6 text-gray-900 sm:truncate mb-4 uppercase">Available items</h2>
             <!-- Replace with your content -->
-            <draggable :list="propAvailableElements" :group="{ name:'elements',  pull:'clone', put:false }" @end="onFormChanged()">
+            <draggable :list="propAvailableElements" :group="{ name: 'elements',  pull: 'clone', put: false }" :clone="clone" @end="onFormChanged()">
               <div class="h-full border-2 border-dashed border-gray-300 py-2 px-3 mb-2" v-for="(elem, index) in propAvailableElements" :key="index">
                 <VueFormBuilderButton :disabled="true" :model="elem" v-if="elem.type === 'button'" :key="index"></VueFormBuilderButton>
                 <VueFormBuilderInput :disabled="true" :model="elem" v-if="elem.type === 'input'" :key="index"></VueFormBuilderInput>
@@ -44,6 +44,7 @@
   import VueFormBuilderRadio from './inputs/vue-draggable-form-builder-radio.vue';
   import VueFormBuilderCheckbox from './inputs/vue-draggable-form-builder-checkbox.vue';
   import VueFormBuilderTextarea from './inputs/vue-draggable-form-builder-textarea.vue';
+  
   export default {
     name: 'VueFormBuilderDraggableSidebar',
     components: {
@@ -73,9 +74,14 @@
       
     },
     methods: {
-     onFormChanged() {
-       this.$emit('onFormChanged');
-     }
+      onFormChanged() {
+        this.$emit('onFormChanged');
+      },
+      clone: function (original){
+        
+        
+        return Object.assign({}, original);
+      },
     },
   };
 </script>
