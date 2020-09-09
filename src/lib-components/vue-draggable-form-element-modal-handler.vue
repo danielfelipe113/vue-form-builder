@@ -17,7 +17,7 @@
                         Edit <span class="text-gray-900">{{ originalModel.type }}</span> field
                     </h3>
                     <div class="mt-2 mb-4">
-                        <!-- name -->
+                        <!-- Name -->
                         <div class="mb-2">
                             <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Name *</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
@@ -119,7 +119,15 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Is required -->
+                        <div class="relative flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="required" type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" v-model="originalModel.required">
+                            </div>
+                            <div class="ml-3 text-sm leading-5">
+                                <label for="required" class="font-medium text-gray-700">Required</label>
+                            </div>
+                        </div>
                     </div>
                     <!-- Errors -->
                     <div class="rounded-md bg-red-100 p-4" v-if="hasErrors && submitted">

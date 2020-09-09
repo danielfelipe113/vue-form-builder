@@ -129,10 +129,10 @@
 </script>
 
 <style>
-
+/* 
   @tailwind base;
   @tailwind components;
-  @tailwind utilities;
+  @tailwind utilities; */
   .actionButtons {
     top: 0.4rem;
   }
