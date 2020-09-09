@@ -154,7 +154,7 @@
             break;
             case 'select':
               availableElems.push({
-                "label": "Label",
+                "label": "Select",
                 "type": "select",
                 "description": "a description",
                 "options": [
