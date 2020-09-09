@@ -9,9 +9,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      currentElements: [
-       
-      ]
+      currentElements:[{"label":"Selected programma","type":"select","description":"Welke workshop wenst u te volgen in de voormiddag?","options":[{"name":"","value":"1","label":"Master data management"},{"name":"","value":"2","label":"Excel Modelling"},{"name":"","value":"3","label":"KPI's die wel werken"}],"name":"selected_programma"},{"label":"Selected programma 2","type":"select","description":"Welke workshop wenst u te volgen in de namiddag?","options":[{"name":"","value":"1","label":"Efficient close process"},{"name":"","value":"2","label":"RPA"},{"name":"","value":"3","label":"Lean in Finance"}],"name":"selected_programma_2"}]
     }
   },
   methods: {

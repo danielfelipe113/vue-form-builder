@@ -1,11 +1,11 @@
 
 
 <template>
-    <div class="flex flex-col  flex-1 bg-white ">
-      <div class="px-4 pt-6 h-full border-gray-300" >
+    <div class="vue-draggable-form-container" :class="{'flex flex-col  flex-1 bg-white': editable}">
+      <div class="vue-draggable-form-wrapper" :class="{'px-4 pt-6 h-full border-gray-300': editable}">
         
-        <draggable class="min-h-full" v-model="currentElements" group="elements"  :options="{disabled: !editable}" @end="onFormChanged()">                  
-          <div class="h-full py-4 px-3 mt-2 relative pt-" v-for="(elem, index) in currentElements" :key="index" :class="{' border-2 border-dashed border-gray-300': editable}">
+        <draggable class="min-h-full vue-draggable-form-draggable-area" v-model="currentElements" group="elements"  :options="{disabled: !editable}" @end="onFormChanged()">                  
+          <div class="vue-draggable-form-element-container" v-for="(elem, index) in currentElements" :key="index" :class="{' border-2 border-dashed border-gray-300 h-full py-4 px-3 mt-2 relative pt-': editable}">
             <div class="actionButtons flex absolute right-0" v-if="editable">
               <!-- Edit -->
               <button type="button" class="flex-shrink-0 mr-1 hover:bg-gray-200 active:bg-gray-300 transition ease-in-out duration-150 rounded" @click="editElem(elem, index)">
@@ -20,13 +20,15 @@
                 </svg>
               </button>
             </div>
-            <VueDraggableFormBuilderButton :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'button'" :key="index"></VueDraggableFormBuilderButton>
-            <VueDraggableFormBuilderInput :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'input'" :key="index"></VueDraggableFormBuilderInput>
-            <VueDraggableFormBuilderToggle :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'toggle'" :key="index"></VueDraggableFormBuilderToggle>
-            <VueDraggableFormBuilderSelect :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'select'" :key="index"></VueDraggableFormBuilderSelect>
-            <VueDraggableFormBuilderCheckbox :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'checkbox'" :key="index"></VueDraggableFormBuilderCheckbox>
-            <VueDraggableFormBuilderRadio :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'radio'" :key="index"></VueDraggableFormBuilderRadio>
-            <VueDraggableFormBuilderTextarea :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'textarea'" :key="index"></VueDraggableFormBuilderTextarea>
+
+
+            <VueDraggableFormBuilderButton :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'button'" :key="index" :is-builder="editable"></VueDraggableFormBuilderButton>
+            <VueDraggableFormBuilderInput :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'input'" :key="index" :is-builder="editable"></VueDraggableFormBuilderInput>
+            <VueDraggableFormBuilderToggle :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'toggle'" :key="index" :is-builder="editable"></VueDraggableFormBuilderToggle>
+            <VueDraggableFormBuilderSelect :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'select'" :key="index" :is-builder="editable"></VueDraggableFormBuilderSelect>
+            <VueDraggableFormBuilderCheckbox :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'checkbox'" :key="index" :is-builder="editable"></VueDraggableFormBuilderCheckbox>
+            <VueDraggableFormBuilderRadio :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'radio'" :key="index" :is-builder="editable"></VueDraggableFormBuilderRadio>
+            <VueDraggableFormBuilderTextarea :disabled="editable" :ref="'elemRef' + index" :model="elem" v-if="elem.type === 'textarea'" :key="index" :is-builder="editable"></VueDraggableFormBuilderTextarea>
           </div>                
         </draggable>
       </div>

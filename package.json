@@ -1,6 +1,6 @@
 {
   "name": "vue-draggable-form-builder",
-  "version": "0.0.26",
+  "version": "0.0.29",
   "description": "",
   "main": "dist/vue-draggable-form-builder.ssr.js",
   "browser": "dist/vue-draggable-form-builder.esm.js",

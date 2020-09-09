@@ -2,12 +2,12 @@
 
 <template>
   
-  <div>
-    <label :for="model.name" class="block text-sm font-medium leading-5 text-gray-700">{{model.label}}</label>
-    <div class="mt-1 relative rounded-md shadow-sm">
-      <input type="text" :id="model.name" class="form-input block w-full sm:text-sm sm:leading-5 border border-gray-300" :placeholder="model.placeholder" :disabled="disabled">
+  <div class="vue-draggable-form-element">
+    <label class="vue-draggable-form-element-label" :class="{'block text-sm font-medium leading-5 text-gray-700': isBuilder}" :for="model.name">{{model.label}}</label>
+    <div class="vue-draggable-form-element-input-container" :class="{'mt-1 relative rounded-md shadow-sm': isBuilder}">
+      <input class="vue-draggable-form-element-input" :class="{'form-input block w-full sm:text-sm sm:leading-5 border border-gray-300': isBuilder}" type="text" :id="model.name"  :placeholder="model.placeholder" :disabled="disabled" >
     </div>
-    <p class="mt-2 text-sm text-gray-500">{{model.description}}</p>
+    <p class="vue-draggable-form-element-description" :class="{'mt-2 text-sm text-gray-500': isBuilder}">{{model.description}}</p>
   </div>
 
 </template>
@@ -29,6 +29,10 @@ export default {
     };
   },
   props: {
+    isBuilder: {
+      type: Boolean,
+      required: true,
+    },
     model: {
       required: true
     },

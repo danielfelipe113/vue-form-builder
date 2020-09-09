@@ -11,13 +11,13 @@
             <!-- Replace with your content -->
             <draggable :list="propAvailableElements" :group="{ name: 'elements',  pull: 'clone', put: false }" :clone="clone" @end="onFormChanged()">
               <div class="h-full border-2 border-dashed border-gray-300 py-2 px-3 mb-2" v-for="(elem, index) in propAvailableElements" :key="index">
-                <VueFormBuilderButton :disabled="true" :model="elem" v-if="elem.type === 'button'" :key="index"></VueFormBuilderButton>
-                <VueFormBuilderInput :disabled="true" :model="elem" v-if="elem.type === 'input'" :key="index"></VueFormBuilderInput>
-                <VueFormBuilderToggle :disabled="true" :model="elem" v-if="elem.type === 'toggle'" :key="index"></VueFormBuilderToggle>
-                <VueFormBuilderSelect :disabled="true" :model="elem" v-if="elem.type === 'select'" :key="index"></VueFormBuilderSelect>
-                <VueFormBuilderCheckbox :disabled="true" :model="elem" v-if="elem.type === 'checkbox'" :key="index"></VueFormBuilderCheckbox>
-                <VueFormBuilderRadio :disabled="true" :model="elem" v-if="elem.type === 'radio'" :key="index"></VueFormBuilderRadio>
-                <VueFormBuilderTextarea :disabled="true" :model="elem" v-if="elem.type === 'textarea'" :key="index"></VueFormBuilderTextarea>
+                <VueFormBuilderButton :disabled="true" :model="elem" v-if="elem.type === 'button'" :key="index" :is-builder="true"></VueFormBuilderButton>
+                <VueFormBuilderInput :disabled="true" :model="elem" v-if="elem.type === 'input'" :key="index" :is-builder="true"></VueFormBuilderInput>
+                <VueFormBuilderToggle :disabled="true" :model="elem" v-if="elem.type === 'toggle'" :key="index" :is-builder="true"></VueFormBuilderToggle>
+                <VueFormBuilderSelect :disabled="true" :model="elem" v-if="elem.type === 'select'" :key="index" :is-builder="true"></VueFormBuilderSelect>
+                <VueFormBuilderCheckbox :disabled="true" :model="elem" v-if="elem.type === 'checkbox'" :key="index" :is-builder="true"></VueFormBuilderCheckbox>
+                <VueFormBuilderRadio :disabled="true" :model="elem" v-if="elem.type === 'radio'" :key="index" :is-builder="true"></VueFormBuilderRadio>
+                <VueFormBuilderTextarea :disabled="true" :model="elem" v-if="elem.type === 'textarea'" :key="index" :is-builder="true"></VueFormBuilderTextarea>
               </div>                
             </draggable>
             <!-- /End replace -->
