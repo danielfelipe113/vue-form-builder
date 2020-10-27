@@ -10,7 +10,7 @@
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
           </svg>
         </div>
-        <div class="ml-3">
+        <div class="ml-3" v-if="showUniqueWarning || showEmptyWarning">
           <h3 class="text-sm leading-5 font-medium text-red-800" v-if="showUniqueWarning">
             Every Name key should be unique among the form
           </h3>
@@ -18,7 +18,7 @@
             Please add at least one element to the form
           </h3>
         </div>
-        <button type="button" class="absolute right-0 mr-4" @click="showUniqueWarning = !showUniqueWarning">
+        <button type="button" class="absolute right-0 mr-4" @click="showUniqueWarning = false; showEmptyWarning = false; showGeneralErrors = false">
           <svg class="h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -215,6 +215,8 @@
             this.showGeneralErrors = false;
             this.$emit('onFormSave', this.currentElements);
           }
+        } else {
+          this.$emit('onFormSave', this.currentElements);
         }
       }
     },

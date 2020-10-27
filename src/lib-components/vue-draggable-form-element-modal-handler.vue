@@ -98,7 +98,7 @@
                                                             <input type="text" id="optionName" class="border border-gray-300 form-input block w-full sm:text-sm sm:leading-5" placeholder="Name" v-model="newOption.label" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !originalModel.options.length}">
                                                         </div>
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                                         <div class="mt-1 relative rounded-md shadow-sm">
                                                             <input type="text" id="optionValue" class="form-input border border-gray-300 block w-full sm:text-sm sm:leading-5" placeholder="Value" v-model="newOption.value" :class="{'border-red-300 text-red-900 placeholder-red-300 focus:shadow-outline-red focus:border-red-300': hasErrors && !originalModel.options.length}">
                                                         </div>
@@ -110,6 +110,11 @@
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                             </svg>
                                                         </button>
+                                                    </td>
+                                                </tr>
+                                                <tr v-if="showSelectValidationError">
+                                                    <td colspan="3" class="p-2 text-sm leading-5 font-light text-red-800">
+                                                        Please add a name and a value
                                                     </td>
                                                 </tr>
                                                 <!-- More rows... -->
@@ -186,7 +191,7 @@
 <script>
 class NewOption {
     constructor() {
-        this.name = '';
+        this.label = '';
         this.value = null;
     }
 }
@@ -199,7 +204,8 @@ export default {
             newOption: new NewOption(),
             hasErrors: false,
             showNameError: false,
-            originalModel: {}
+            originalModel: {},
+            showSelectValidationError: false,
         }
     },
     props: {
@@ -259,9 +265,14 @@ export default {
             return this.originalModel.name.match(/^[a-zA-Z0-9-_]{0,}$/);
         },
         addNewOption() {
-            this.originalModel.options.push(this.newOption);
-            this.newOption = new NewOption();
-            this.validateForm();
+            if(!!this.newOption.label && !!this.newOption.value) {
+                this.showSelectValidationError = false;
+                this.originalModel.options.push(this.newOption);
+                this.newOption = new NewOption();
+                this.validateForm();
+            } else {
+                this.showSelectValidationError = true;
+            }
         },
         removeOption(idx) {
             this.originalModel.options.splice(idx, 1);
